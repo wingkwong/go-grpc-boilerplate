@@ -39,7 +39,18 @@ message ReadResponse{
     Foo foo = 2;
 }
 
+message UpdateRequest{
+    string api_verson = 1;
+    Foo foo = 2;
+}
+
+message UpdateResponse{
+    string api_verson = 1;
+    int64 count = 2;
+}
+
 service FooService {
     rpc Create(CreateRequest) returns (CreateResponse);
     rpc Create(ReadResponse) returns (ReadResponse);
+    rpc Create(UpdateRequest) returns (UpdateResponse);
 }
