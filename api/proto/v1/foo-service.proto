@@ -29,6 +29,17 @@ message CreateResponse{
     int64 id = 2;
 }
 
+message ReadRequest{
+    string api_verson = 1;
+    int64 id = 2;
+}
+
+message ReadResponse{
+    string api_verson = 1;
+    Foo foo = 2;
+}
+
 service FooService {
     rpc Create(CreateRequest) returns (CreateResponse);
+    rpc Create(ReadResponse) returns (ReadResponse);
 }
