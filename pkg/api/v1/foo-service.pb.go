@@ -277,6 +277,336 @@ func (x *CreateResponse) GetId() int64 {
 	return 0
 }
 
+type ReadRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ApiVerson string `protobuf:"bytes,1,opt,name=api_verson,json=apiVerson,proto3" json:"api_verson,omitempty"`
+	Id        int64  `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *ReadRequest) Reset() {
+	*x = ReadRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_foo_service_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReadRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadRequest) ProtoMessage() {}
+
+func (x *ReadRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_foo_service_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadRequest.ProtoReflect.Descriptor instead.
+func (*ReadRequest) Descriptor() ([]byte, []int) {
+	return file_foo_service_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ReadRequest) GetApiVerson() string {
+	if x != nil {
+		return x.ApiVerson
+	}
+	return ""
+}
+
+func (x *ReadRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type ReadResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ApiVerson string `protobuf:"bytes,1,opt,name=api_verson,json=apiVerson,proto3" json:"api_verson,omitempty"`
+	Foo       *Foo   `protobuf:"bytes,2,opt,name=foo,proto3" json:"foo,omitempty"`
+}
+
+func (x *ReadResponse) Reset() {
+	*x = ReadResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_foo_service_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReadResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReadResponse) ProtoMessage() {}
+
+func (x *ReadResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_foo_service_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReadResponse.ProtoReflect.Descriptor instead.
+func (*ReadResponse) Descriptor() ([]byte, []int) {
+	return file_foo_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ReadResponse) GetApiVerson() string {
+	if x != nil {
+		return x.ApiVerson
+	}
+	return ""
+}
+
+func (x *ReadResponse) GetFoo() *Foo {
+	if x != nil {
+		return x.Foo
+	}
+	return nil
+}
+
+type UpdateRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ApiVerson string `protobuf:"bytes,1,opt,name=api_verson,json=apiVerson,proto3" json:"api_verson,omitempty"`
+	Foo       *Foo   `protobuf:"bytes,2,opt,name=foo,proto3" json:"foo,omitempty"`
+}
+
+func (x *UpdateRequest) Reset() {
+	*x = UpdateRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_foo_service_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateRequest) ProtoMessage() {}
+
+func (x *UpdateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_foo_service_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateRequest.ProtoReflect.Descriptor instead.
+func (*UpdateRequest) Descriptor() ([]byte, []int) {
+	return file_foo_service_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *UpdateRequest) GetApiVerson() string {
+	if x != nil {
+		return x.ApiVerson
+	}
+	return ""
+}
+
+func (x *UpdateRequest) GetFoo() *Foo {
+	if x != nil {
+		return x.Foo
+	}
+	return nil
+}
+
+type UpdateResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ApiVerson string `protobuf:"bytes,1,opt,name=api_verson,json=apiVerson,proto3" json:"api_verson,omitempty"`
+	Count     int64  `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+}
+
+func (x *UpdateResponse) Reset() {
+	*x = UpdateResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_foo_service_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateResponse) ProtoMessage() {}
+
+func (x *UpdateResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_foo_service_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateResponse.ProtoReflect.Descriptor instead.
+func (*UpdateResponse) Descriptor() ([]byte, []int) {
+	return file_foo_service_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateResponse) GetApiVerson() string {
+	if x != nil {
+		return x.ApiVerson
+	}
+	return ""
+}
+
+func (x *UpdateResponse) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
+type DeleteRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ApiVerson string `protobuf:"bytes,1,opt,name=api_verson,json=apiVerson,proto3" json:"api_verson,omitempty"`
+	Id        int64  `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *DeleteRequest) Reset() {
+	*x = DeleteRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_foo_service_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteRequest) ProtoMessage() {}
+
+func (x *DeleteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_foo_service_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteRequest.ProtoReflect.Descriptor instead.
+func (*DeleteRequest) Descriptor() ([]byte, []int) {
+	return file_foo_service_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *DeleteRequest) GetApiVerson() string {
+	if x != nil {
+		return x.ApiVerson
+	}
+	return ""
+}
+
+func (x *DeleteRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type DeleteResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ApiVerson string `protobuf:"bytes,1,opt,name=api_verson,json=apiVerson,proto3" json:"api_verson,omitempty"`
+	Count     int64  `protobuf:"varint,2,opt,name=count,proto3" json:"count,omitempty"`
+}
+
+func (x *DeleteResponse) Reset() {
+	*x = DeleteResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_foo_service_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteResponse) ProtoMessage() {}
+
+func (x *DeleteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_foo_service_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteResponse.ProtoReflect.Descriptor instead.
+func (*DeleteResponse) Descriptor() ([]byte, []int) {
+	return file_foo_service_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *DeleteResponse) GetApiVerson() string {
+	if x != nil {
+		return x.ApiVerson
+	}
+	return ""
+}
+
+func (x *DeleteResponse) GetCount() int64 {
+	if x != nil {
+		return x.Count
+	}
+	return 0
+}
+
 var File_foo_service_proto protoreflect.FileDescriptor
 
 var file_foo_service_proto_rawDesc = []byte{
@@ -311,12 +641,47 @@ var file_foo_service_proto_rawDesc = []byte{
 	0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1d, 0x0a, 0x0a,
 	0x61, 0x70, 0x69, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x09, 0x61, 0x70, 0x69, 0x56, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x69,
-	0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x32, 0x3d, 0x0a, 0x0a, 0x46,
-	0x6f, 0x6f, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x2f, 0x0a, 0x06, 0x43, 0x72, 0x65,
-	0x61, 0x74, 0x65, 0x12, 0x11, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x65, 0x61,
-	0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x07, 0x5a, 0x05, 0x2e, 0x2f,
-	0x3b, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x3c, 0x0a, 0x0b, 0x52,
+	0x65, 0x61, 0x64, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x61, 0x70,
+	0x69, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09,
+	0x61, 0x70, 0x69, 0x56, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x48, 0x0a, 0x0c, 0x52, 0x65, 0x61,
+	0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1d, 0x0a, 0x0a, 0x61, 0x70, 0x69,
+	0x5f, 0x76, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x61,
+	0x70, 0x69, 0x56, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x12, 0x19, 0x0a, 0x03, 0x66, 0x6f, 0x6f, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x07, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x6f, 0x6f, 0x52, 0x03,
+	0x66, 0x6f, 0x6f, 0x22, 0x49, 0x0a, 0x0d, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x61, 0x70, 0x69, 0x5f, 0x76, 0x65, 0x72, 0x73,
+	0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x61, 0x70, 0x69, 0x56, 0x65, 0x72,
+	0x73, 0x6f, 0x6e, 0x12, 0x19, 0x0a, 0x03, 0x66, 0x6f, 0x6f, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x07, 0x2e, 0x76, 0x31, 0x2e, 0x46, 0x6f, 0x6f, 0x52, 0x03, 0x66, 0x6f, 0x6f, 0x22, 0x45,
+	0x0a, 0x0e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x1d, 0x0a, 0x0a, 0x61, 0x70, 0x69, 0x5f, 0x76, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x61, 0x70, 0x69, 0x56, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x12,
+	0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x05,
+	0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x3e, 0x0a, 0x0d, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x61, 0x70, 0x69, 0x5f, 0x76, 0x65,
+	0x72, 0x73, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x61, 0x70, 0x69, 0x56,
+	0x65, 0x72, 0x73, 0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x45, 0x0a, 0x0e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1d, 0x0a, 0x0a, 0x61, 0x70, 0x69, 0x5f, 0x76,
+	0x65, 0x72, 0x73, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x61, 0x70, 0x69,
+	0x56, 0x65, 0x72, 0x73, 0x6f, 0x6e, 0x12, 0x14, 0x0a, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x05, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x32, 0xca, 0x01, 0x0a,
+	0x0a, 0x46, 0x6f, 0x6f, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x2f, 0x0a, 0x06, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x12, 0x11, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72,
+	0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x29, 0x0a, 0x04,
+	0x52, 0x65, 0x61, 0x64, 0x12, 0x0f, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x10, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x61, 0x64, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a, 0x06, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x12, 0x11, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2f, 0x0a, 0x06, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x12, 0x11, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x07, 0x5a, 0x05, 0x2e, 0x2f, 0x3b,
+	0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -331,26 +696,40 @@ func file_foo_service_proto_rawDescGZIP() []byte {
 	return file_foo_service_proto_rawDescData
 }
 
-var file_foo_service_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_foo_service_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_foo_service_proto_goTypes = []interface{}{
 	(*SystemFields)(nil),          // 0: v1.SystemFields
 	(*Foo)(nil),                   // 1: v1.Foo
 	(*CreateRequest)(nil),         // 2: v1.CreateRequest
 	(*CreateResponse)(nil),        // 3: v1.CreateResponse
-	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
+	(*ReadRequest)(nil),           // 4: v1.ReadRequest
+	(*ReadResponse)(nil),          // 5: v1.ReadResponse
+	(*UpdateRequest)(nil),         // 6: v1.UpdateRequest
+	(*UpdateResponse)(nil),        // 7: v1.UpdateResponse
+	(*DeleteRequest)(nil),         // 8: v1.DeleteRequest
+	(*DeleteResponse)(nil),        // 9: v1.DeleteResponse
+	(*timestamppb.Timestamp)(nil), // 10: google.protobuf.Timestamp
 }
 var file_foo_service_proto_depIdxs = []int32{
-	4, // 0: v1.SystemFields.created_at:type_name -> google.protobuf.Timestamp
-	4, // 1: v1.SystemFields.updated_at:type_name -> google.protobuf.Timestamp
-	0, // 2: v1.Foo.sys_fields:type_name -> v1.SystemFields
-	1, // 3: v1.CreateRequest.foo:type_name -> v1.Foo
-	2, // 4: v1.FooService.Create:input_type -> v1.CreateRequest
-	3, // 5: v1.FooService.Create:output_type -> v1.CreateResponse
-	5, // [5:6] is the sub-list for method output_type
-	4, // [4:5] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	10, // 0: v1.SystemFields.created_at:type_name -> google.protobuf.Timestamp
+	10, // 1: v1.SystemFields.updated_at:type_name -> google.protobuf.Timestamp
+	0,  // 2: v1.Foo.sys_fields:type_name -> v1.SystemFields
+	1,  // 3: v1.CreateRequest.foo:type_name -> v1.Foo
+	1,  // 4: v1.ReadResponse.foo:type_name -> v1.Foo
+	1,  // 5: v1.UpdateRequest.foo:type_name -> v1.Foo
+	2,  // 6: v1.FooService.Create:input_type -> v1.CreateRequest
+	4,  // 7: v1.FooService.Read:input_type -> v1.ReadRequest
+	6,  // 8: v1.FooService.Update:input_type -> v1.UpdateRequest
+	8,  // 9: v1.FooService.Delete:input_type -> v1.DeleteRequest
+	3,  // 10: v1.FooService.Create:output_type -> v1.CreateResponse
+	5,  // 11: v1.FooService.Read:output_type -> v1.ReadResponse
+	7,  // 12: v1.FooService.Update:output_type -> v1.UpdateResponse
+	9,  // 13: v1.FooService.Delete:output_type -> v1.DeleteResponse
+	10, // [10:14] is the sub-list for method output_type
+	6,  // [6:10] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_foo_service_proto_init() }
@@ -407,6 +786,78 @@ func file_foo_service_proto_init() {
 				return nil
 			}
 		}
+		file_foo_service_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReadRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_foo_service_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReadResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_foo_service_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_foo_service_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_foo_service_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_foo_service_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DeleteResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -414,7 +865,7 @@ func file_foo_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_foo_service_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -441,6 +892,9 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type FooServiceClient interface {
 	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
+	Read(ctx context.Context, in *ReadRequest, opts ...grpc.CallOption) (*ReadResponse, error)
+	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*UpdateResponse, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
 }
 
 type fooServiceClient struct {
@@ -460,9 +914,39 @@ func (c *fooServiceClient) Create(ctx context.Context, in *CreateRequest, opts .
 	return out, nil
 }
 
+func (c *fooServiceClient) Read(ctx context.Context, in *ReadRequest, opts ...grpc.CallOption) (*ReadResponse, error) {
+	out := new(ReadResponse)
+	err := c.cc.Invoke(ctx, "/v1.FooService/Read", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *fooServiceClient) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*UpdateResponse, error) {
+	out := new(UpdateResponse)
+	err := c.cc.Invoke(ctx, "/v1.FooService/Update", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *fooServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error) {
+	out := new(DeleteResponse)
+	err := c.cc.Invoke(ctx, "/v1.FooService/Delete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FooServiceServer is the server API for FooService service.
 type FooServiceServer interface {
 	Create(context.Context, *CreateRequest) (*CreateResponse, error)
+	Read(context.Context, *ReadRequest) (*ReadResponse, error)
+	Update(context.Context, *UpdateRequest) (*UpdateResponse, error)
+	Delete(context.Context, *DeleteRequest) (*DeleteResponse, error)
 }
 
 // UnimplementedFooServiceServer can be embedded to have forward compatible implementations.
@@ -471,6 +955,15 @@ type UnimplementedFooServiceServer struct {
 
 func (*UnimplementedFooServiceServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+}
+func (*UnimplementedFooServiceServer) Read(context.Context, *ReadRequest) (*ReadResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Read not implemented")
+}
+func (*UnimplementedFooServiceServer) Update(context.Context, *UpdateRequest) (*UpdateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+}
+func (*UnimplementedFooServiceServer) Delete(context.Context, *DeleteRequest) (*DeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 
 func RegisterFooServiceServer(s *grpc.Server, srv FooServiceServer) {
@@ -495,6 +988,60 @@ func _FooService_Create_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FooService_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FooServiceServer).Read(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.FooService/Read",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FooServiceServer).Read(ctx, req.(*ReadRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FooService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FooServiceServer).Update(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.FooService/Update",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FooServiceServer).Update(ctx, req.(*UpdateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _FooService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FooServiceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.FooService/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FooServiceServer).Delete(ctx, req.(*DeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _FooService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "v1.FooService",
 	HandlerType: (*FooServiceServer)(nil),
@@ -502,6 +1049,18 @@ var _FooService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Create",
 			Handler:    _FooService_Create_Handler,
+		},
+		{
+			MethodName: "Read",
+			Handler:    _FooService_Read_Handler,
+		},
+		{
+			MethodName: "Update",
+			Handler:    _FooService_Update_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _FooService_Delete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
