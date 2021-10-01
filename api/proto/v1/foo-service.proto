@@ -49,8 +49,19 @@ message UpdateResponse{
     int64 count = 2;
 }
 
+message DeleteRequest{
+    string api_verson = 1;
+    int64 id = 2;
+}
+
+message DeleteResponse{
+    string api_verson = 1;
+    int64 count = 2;
+}
+
 service FooService {
     rpc Create(CreateRequest) returns (CreateResponse);
     rpc Create(ReadResponse) returns (ReadResponse);
     rpc Create(UpdateRequest) returns (UpdateResponse);
+    rpc Create(DeleteRequest) returns (DeleteResponse);
 }
