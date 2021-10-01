@@ -19,42 +19,42 @@ message Foo {
     SystemFields sys_fields = 4;
 }
 
-message CreateRequest{
+message CreateRequest {
     string api_verson = 1;
     Foo foo = 2;
 }
 
-message CreateResponse{
+message CreateResponse {
     string api_verson = 1;
     int64 id = 2;
 }
 
-message ReadRequest{
+message ReadRequest {
     string api_verson = 1;
     int64 id = 2;
 }
 
-message ReadResponse{
+message ReadResponse {
     string api_verson = 1;
     Foo foo = 2;
 }
 
-message UpdateRequest{
+message UpdateRequest {
     string api_verson = 1;
     Foo foo = 2;
 }
 
-message UpdateResponse{
+message UpdateResponse {
     string api_verson = 1;
     int64 count = 2;
 }
 
-message DeleteRequest{
+message DeleteRequest {
     string api_verson = 1;
     int64 id = 2;
 }
 
-message DeleteResponse{
+message DeleteResponse {
     string api_verson = 1;
     int64 count = 2;
 }
