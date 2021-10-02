@@ -68,3 +68,18 @@ func (s *fooServiceServer) Create(ctx context.Context, req *v1.CreateRequest) (*
 		Id:        id,
 	}, nil
 }
+
+func (s *fooServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.ReadResponse, error) {
+	// TO BE IMPLEMENTED
+	return nil, nil
+}
+
+func (s *fooServiceServer) Update(ctx context.Context, req *v1.UpdateRequest) (*v1.UpdateResponse, error) {
+	// TO BE IMPLEMENTED
+	return nil, nil
+}
+
+func (s *fooServiceServer) Delete(ctx context.Context, req *v1.DeleteRequest) (*v1.DeleteResponse, error) {
+	// TO BE IMPLEMENTED
+	return nil, nil
+}
