@@ -40,7 +40,7 @@ func (s *fooServiceServer) connect(ctx context.Context) (*sql.Conn, error) {
 }
 
 func (s *fooServiceServer) Create(ctx context.Context, req *v1.CreateRequest) (*v1.CreateResponse, error) {
-	if err := s.checkAPI(req.ApiVerson); err != nil {
+	if err := s.checkAPI(req.ApiVersion); err != nil {
 		return nil, err
 	}
 
@@ -64,13 +64,13 @@ func (s *fooServiceServer) Create(ctx context.Context, req *v1.CreateRequest) (*
 	}
 
 	return &v1.CreateResponse{
-		ApiVerson: apiVersion,
-		Id:        id,
+		ApiVersion: apiVersion,
+		Id:         id,
 	}, nil
 }
 
 func (s *fooServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.ReadResponse, error) {
-	if err := s.checkAPI(req.ApiVerson); err != nil {
+	if err := s.checkAPI(req.ApiVersion); err != nil {
 		return nil, err
 	}
 
@@ -106,13 +106,13 @@ func (s *fooServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.R
 	}
 
 	return &v1.ReadResponse{
-		ApiVerson: apiVersion,
-		Foo:       &foo,
+		ApiVersion: apiVersion,
+		Foo:        &foo,
 	}, nil
 }
 
 func (s *fooServiceServer) Update(ctx context.Context, req *v1.UpdateRequest) (*v1.UpdateResponse, error) {
-	if err := s.checkAPI(req.ApiVerson); err != nil {
+	if err := s.checkAPI(req.ApiVersion); err != nil {
 		return nil, err
 	}
 
@@ -137,13 +137,13 @@ func (s *fooServiceServer) Update(ctx context.Context, req *v1.UpdateRequest) (*
 	}
 
 	return &v1.UpdateResponse{
-		ApiVerson: apiVersion,
-		Count:     rows,
+		ApiVersion: apiVersion,
+		Count:      rows,
 	}, nil
 }
 
 func (s *fooServiceServer) Delete(ctx context.Context, req *v1.DeleteRequest) (*v1.DeleteResponse, error) {
-	if err := s.checkAPI(req.ApiVerson); err != nil {
+	if err := s.checkAPI(req.ApiVersion); err != nil {
 		return nil, err
 	}
 
@@ -170,7 +170,7 @@ func (s *fooServiceServer) Delete(ctx context.Context, req *v1.DeleteRequest) (*
 	}
 
 	return &v1.DeleteResponse{
-		ApiVerson: apiVersion,
-		Count:     rows,
+		ApiVersion: apiVersion,
+		Count:      rows,
 	}, nil
 }
