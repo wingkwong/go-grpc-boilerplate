@@ -126,3 +126,15 @@ func Test_fooServiceServer_Create(t *testing.T) {
 		})
 	}
 }
+
+func Test_fooServiceServer_Read(t *testing.T) {
+	// TO BE IMPLEMENTED
+}
+
+func Test_fooServiceServer_Update(t *testing.T) {
+	// TO BE IMPLEMENTED
+}
+
+func Test_fooServiceServer_Delete(t *testing.T) {
+	// TO BE IMPLEMENTED
+}
