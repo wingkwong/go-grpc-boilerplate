@@ -112,8 +112,34 @@ func (s *fooServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.R
 }
 
 func (s *fooServiceServer) Update(ctx context.Context, req *v1.UpdateRequest) (*v1.UpdateResponse, error) {
-	// TO BE IMPLEMENTED
-	return nil, nil
+	if err := s.checkAPI(req.ApiVerson); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	res, err := c.ExecContext(ctx, "UPDATE Foo SET `Title` = ?, `Desc` = ? WHERE `ID` = ?", req.Foo.Title, req.Foo.Desc, req.Foo.Id)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "[Error] Failed to update Foo : "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "[Error] Failed to retrieve rows affected value :  "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Errorf(codes.NotFound, "[Error] Failed to find Foo with id : %d", req.Foo.Id)
+	}
+
+	return &v1.UpdateResponse{
+		ApiVerson: apiVersion,
+		Count:     rows,
+	}, nil
 }
 
 func (s *fooServiceServer) Delete(ctx context.Context, req *v1.DeleteRequest) (*v1.DeleteResponse, error) {
