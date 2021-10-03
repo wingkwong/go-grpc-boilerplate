@@ -133,7 +133,7 @@ func (s *fooServiceServer) Update(ctx context.Context, req *v1.UpdateRequest) (*
 	}
 
 	if rows == 0 {
-		return nil, status.Errorf(codes.NotFound, "[Error] Failed to find Foo with id : %d", req.Foo.Id)
+		return nil, status.Errorf(codes.NotFound, "[Error] Failed to update Foo with id : %d", req.Foo.Id)
 	}
 
 	return &v1.UpdateResponse{
@@ -143,6 +143,34 @@ func (s *fooServiceServer) Update(ctx context.Context, req *v1.UpdateRequest) (*
 }
 
 func (s *fooServiceServer) Delete(ctx context.Context, req *v1.DeleteRequest) (*v1.DeleteResponse, error) {
-	// TO BE IMPLEMENTED
-	return nil, nil
+	if err := s.checkAPI(req.ApiVerson); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	id := req.Id
+
+	res, err := c.ExecContext(ctx, "DELETE FROM Foo WHERE `ID` = ?", id)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "[Error] Failed to delete Foo : "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "[Error] Failed to retrieve rows affected value :  "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Errorf(codes.NotFound, "[Error] Failed to delete Foo with id : %d", id)
+	}
+
+	return &v1.DeleteResponse{
+		ApiVerson: apiVersion,
+		Count:     rows,
+	}, nil
 }
