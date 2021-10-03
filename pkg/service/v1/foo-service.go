@@ -70,8 +70,45 @@ func (s *fooServiceServer) Create(ctx context.Context, req *v1.CreateRequest) (*
 }
 
 func (s *fooServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.ReadResponse, error) {
-	// TO BE IMPLEMENTED
-	return nil, nil
+	if err := s.checkAPI(req.ApiVerson); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	id := req.Id
+
+	rows, err := c.QueryContext(ctx, "SELECT * FROM Foo WHERE `ID` = ?", id)
+	if err != nil {
+		return nil, status.Errorf(codes.Unknown, "[Error] Failed to select data from Foo by Id %d : "+err.Error(), id)
+	}
+	defer rows.Close()
+
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return nil, status.Error(codes.Unknown, "[Error] Failed to retrieve data from Foo: "+err.Error())
+		}
+		return nil, status.Errorf(codes.NotFound, "[Error] Failed to find Id : %s", id)
+	}
+
+	var foo v1.Foo
+	// TODO: probably use jmoiron/sqlx to assign to a struct
+	if err := rows.Scan(&foo.Id, &foo.Title, &foo.Desc, &foo.SysFields.CreatedBy, &foo.SysFields.UpdatedBy, &foo.SysFields.CreatedAt, &foo.SysFields.GetUpdatedAt); err != nil {
+		return nil, status.Error(codes.Unknown, "[Error] Failed to retrieve values from Foo rows : "+err.Error())
+	}
+
+	if rows.Next() {
+		return nil, status.Errorf(codes.Unknown, "[Error] multiple rows with the same id :'%d'", id)
+	}
+
+	return &v1.ReadResponse{
+		ApiVerson: apiVersion,
+		Foo:       &foo,
+	}, nil
 }
 
 func (s *fooServiceServer) Update(ctx context.Context, req *v1.UpdateRequest) (*v1.UpdateResponse, error) {
