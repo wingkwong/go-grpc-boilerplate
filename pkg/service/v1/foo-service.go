@@ -97,7 +97,7 @@ func (s *fooServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.R
 
 	var foo v1.Foo
 	// TODO: probably use jmoiron/sqlx to assign to a struct
-	if err := rows.Scan(&foo.Id, &foo.Title, &foo.Desc, &foo.SysFields.CreatedBy, &foo.SysFields.UpdatedBy, &foo.SysFields.CreatedAt, &foo.SysFields.GetUpdatedAt); err != nil {
+	if err := rows.Scan(&foo.Id, &foo.Title, &foo.Desc, &foo.SysFields.CreatedBy, &foo.SysFields.UpdatedBy, &foo.SysFields.CreatedAt, &foo.SysFields.UpdatedAt); err != nil {
 		return nil, status.Error(codes.Unknown, "[Error] Failed to retrieve values from Foo rows : "+err.Error())
 	}
 
