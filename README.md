@@ -26,3 +26,19 @@ Refer to [golang-standards/project-layout](https://github.com/golang-standards/p
 ```bash
 protoc --proto_path=api/proto/v1 --proto_path=third_party --go_out=plugins=grpc:pkg/api/v1 foo-service.proto
 ```
+
+## Run gRPC Server
+
+```
+cd cmd/server
+go build .
+./server -grpc-port=9090 -db-host=<HOST>:3306 -db-user=<DB_USER> -db-password=<DB_PASSWORD> -db-schema=<DB_SCHEMA>
+```
+
+## Run gRPC Client
+
+```
+cd cmd/client
+go build .
+./grpc -server=localhost:9090
+```
