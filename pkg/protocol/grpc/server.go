@@ -2,12 +2,12 @@ package grpc
 
 import (
 	"context"
-	"log"
 	"net"
 	"os"
 	"os/signal"
 
 	v1 "github.com/wingkwong/go-grpc-boilerplate/pkg/api/v1"
+	"github.com/wingkwong/go-grpc-boilerplate/pkg/logger"
 	"google.golang.org/grpc"
 )
 
@@ -24,12 +24,12 @@ func RunServer(ctx context.Context, v1API v1.FooServiceServer, port string) erro
 	signal.Notify(c, os.Interrupt)
 	go func() {
 		for range c {
-			log.Println("[Info] Shutting down gRPC server...")
+			logger.Log.Warn("Shutting down gRPC server...")
 			server.GracefulStop()
 			<-ctx.Done()
 		}
 	}()
 
-	log.Println("[Info] Starting gRPC server...")
+	logger.Log.Info("Starting gRPC server...")
 	return server.Serve(listen)
 }

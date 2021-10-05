@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
-
+	"github.com/wingkwong/go-grpc-boilerplate/pkg/logger"
 	"github.com/wingkwong/go-grpc-boilerplate/pkg/protocol/grpc"
 	v1 "github.com/wingkwong/go-grpc-boilerplate/pkg/service/v1"
 )
@@ -18,6 +18,8 @@ type Config struct {
 	DatastoreDBUser     string
 	DatastoreDBPassword string
 	DatastoreDBSchema   string
+	LogLevel            int
+	LogTimeFormat       string
 }
 
 func RunServer() error {
@@ -29,10 +31,16 @@ func RunServer() error {
 	flag.StringVar(&cfg.DatastoreDBUser, "db-user", "", "Database user")
 	flag.StringVar(&cfg.DatastoreDBPassword, "db-password", "", "Database password")
 	flag.StringVar(&cfg.DatastoreDBSchema, "db-schema", "", "Database schema")
+	flag.IntVar(&cfg.LogLevel, "log-level", 0, "Global log level: Debug(-1), Info(0), Warn(1), Error(2), DPanic(3), Panic(4), Fatal(5)")
+	flag.StringVar(&cfg.LogTimeFormat, "log-time-format", "", "Print time format for logger e.g. 2019-07-21T23:20:00Z08:00")
 	flag.Parse()
 
 	if len(cfg.GRPCPort) == 0 {
-		return fmt.Errorf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
+		return fmt.Errorf("[ERROR] Invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
+	}
+
+	if err := logger.Init(cfg.LogLevel, cfg.LogTimeFormat); err != nil {
+		return fmt.Errorf("[ERROR] Failed to initialize logger: %v", err)
 	}
 
 	param := "parseTime=true"
@@ -47,7 +55,7 @@ func RunServer() error {
 	)
 	db, err := sql.Open("mysql", dsn)
 	if err != nil {
-		return fmt.Errorf("failed to open database: %v", err)
+		return fmt.Errorf("[ERROR] Failed to open database: %v", err)
 	}
 
 	defer db.Close()
