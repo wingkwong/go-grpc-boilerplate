@@ -93,7 +93,25 @@ service FooService {
             body: "*"
         };
     };
-    rpc Read(ReadRequest) returns (ReadResponse);
-    rpc Update(UpdateRequest) returns (UpdateResponse);
-    rpc Delete(DeleteRequest) returns (DeleteResponse);
+    rpc Read(ReadRequest) returns (ReadResponse) {
+        option (google.api.http) = {
+            get: "/v1/foo/{id}"
+        };
+    };
+    rpc Update(UpdateRequest) returns (UpdateResponse) {
+        option (google.api.http) = {
+            put: "/api/v1/foo/{foo.id}"
+            body: "*"
+
+            additional_bindings {
+                patch: "/api/v1/foo/{foo.id}"
+                body: "*"
+            }
+        };
+    };
+    rpc Delete(DeleteRequest) returns (DeleteResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1/foo/{id}"
+        };
+    };
 }
