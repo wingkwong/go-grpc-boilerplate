@@ -5,10 +5,10 @@ import (
 	"database/sql"
 	"time"
 
+	v1 "github.com/wingkwong/go-grpc-boilerplate/pkg/api/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-
-	v1 "github.com/wingkwong/go-grpc-boilerplate/pkg/api/v1"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 const (
@@ -81,8 +81,7 @@ func (s *fooServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.R
 	defer c.Close()
 
 	id := req.Id
-
-	rows, err := c.QueryContext(ctx, "SELECT * FROM Foo WHERE `ID` = ?", id)
+	rows, err := c.QueryContext(ctx, "SELECT `ID`, `Title`, `Desc`, `CreatedBy`, `UpdatedBy`, `CreatedAt`, `UpdatedAt` FROM Foo WHERE `ID` = ?", id)
 	if err != nil {
 		return nil, status.Errorf(codes.Unknown, "[Error] Failed to select data from Foo by Id %d : "+err.Error(), id)
 	}
@@ -96,10 +95,18 @@ func (s *fooServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.R
 	}
 
 	var foo v1.Foo
+	foo.SysFields = &v1.SystemFields{}
+
+	var CreatedAt time.Time
+	var UpdatedAt time.Time
+
 	// TODO: probably use jmoiron/sqlx to assign to a struct
-	if err := rows.Scan(&foo.Id, &foo.Title, &foo.Desc, &foo.SysFields.CreatedBy, &foo.SysFields.UpdatedBy, &foo.SysFields.CreatedAt, &foo.SysFields.UpdatedAt); err != nil {
+	if err := rows.Scan(&foo.Id, &foo.Title, &foo.Desc, &foo.SysFields.CreatedBy, &foo.SysFields.UpdatedBy, &CreatedAt, &UpdatedAt); err != nil {
 		return nil, status.Error(codes.Unknown, "[Error] Failed to retrieve values from Foo rows : "+err.Error())
 	}
+
+	foo.SysFields.CreatedAt = timestamppb.New(CreatedAt)
+	foo.SysFields.UpdatedAt = timestamppb.New(UpdatedAt)
 
 	if rows.Next() {
 		return nil, status.Errorf(codes.Unknown, "[Error] multiple rows with the same id :'%d'", id)
