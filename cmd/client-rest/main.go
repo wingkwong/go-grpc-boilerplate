@@ -19,7 +19,7 @@ func main() {
 	pfx := t.Format(time.RFC3339Nano)
 
 	// Create
-	resp, err := http.Post(*address+"/v1/foo", "application/json", strings.NewReader(fmt.Sprintf(`
+	resp, err := http.Post(*address+"/api/v1/foo", "application/json", strings.NewReader(fmt.Sprintf(`
 		{
 			"api":"v1",
 			"foo": {
@@ -67,7 +67,7 @@ func main() {
 	log.Printf("Read response: Code=%d, Body=%s\n\n", resp.StatusCode, body)
 
 	// Update
-	req, _ := http.NewRequest("PUT", fmt.Sprintf("%s%s/%s", *address, "/v1/foo", created.ID),
+	req, _ := http.NewRequest("PUT", fmt.Sprintf("%s%s/%s", *address, "/api/v1/foo", created.ID),
 		strings.NewReader(fmt.Sprintf(`
 		{
 			"api":"v1",
