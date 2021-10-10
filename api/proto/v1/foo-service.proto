@@ -4,6 +4,8 @@ option go_package="./;v1";
 package v1;
 
 import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
 
 message SystemFields {
     string created_by = 1;
@@ -59,8 +61,38 @@ message DeleteResponse {
     int64 count = 2;
 }
 
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    info: {
+        title: "Foo Service";
+        version: "1.0";
+    };
+    external_docs: {
+      url: "https://github.com/wubgjwibg/grpc-gateway-boilerplate";
+      description: "gRPC-gateway boilerplate repository";
+    }
+    schemes: HTTPS;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+  };
+
 service FooService {
-    rpc Create(CreateRequest) returns (CreateResponse);
+    rpc Create(CreateRequest) returns (CreateResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/foo"
+            body: "*"
+        };
+    };
     rpc Read(ReadRequest) returns (ReadResponse);
     rpc Update(UpdateRequest) returns (UpdateResponse);
     rpc Delete(DeleteRequest) returns (DeleteResponse);
