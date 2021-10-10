@@ -34,7 +34,9 @@ Refer to [golang-standards/project-layout](https://github.com/golang-standards/p
 ## Run protobuf Compiler 
 
 ```bash
-protoc --proto_path=api/proto/v1 --go_out=plugins=grpc:pkg/api/v1 foo-service.proto
+protoc --proto_path=api/proto/v1 --proto_path=third_party --go_out=plugins=grpc:pkg/api/v1 foo-service.proto
+protoc --proto_path=api/proto/v1 --proto_path=third_party --grpc-gateway_out=logtostderr=true:pkg/api/v1 foo-service.proto
+protoc --proto_path=api/proto/v1 --proto_path=third_party --swagger_out=logtostderr=true:api/swagger/v1 foo-service.proto
 ```
 
 ## Run gRPC Server
@@ -50,5 +52,5 @@ go build .
 ```
 cd cmd/client
 go build .
-./grpc -server=localhost:9090
+./client -server=localhost:9090
 ```
