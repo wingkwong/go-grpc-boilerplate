@@ -95,7 +95,7 @@ service FooService {
     };
     rpc Read(ReadRequest) returns (ReadResponse) {
         option (google.api.http) = {
-            get: "/v1/foo/{id}"
+            get: "/api/v1/foo/{id}"
         };
     };
     rpc Update(UpdateRequest) returns (UpdateResponse) {

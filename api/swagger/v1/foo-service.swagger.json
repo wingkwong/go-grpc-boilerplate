@@ -144,13 +144,13 @@
       }
     },
     "/api/v1/foo/{id}": {
-      "delete": {
-        "operationId": "FooService_Delete",
+      "get": {
+        "operationId": "FooService_Read",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1DeleteResponse"
+              "$ref": "#/definitions/v1ReadResponse"
             }
           },
           "404": {
@@ -185,16 +185,14 @@
         "tags": [
           "FooService"
         ]
-      }
-    },
-    "/v1/foo/{id}": {
-      "get": {
-        "operationId": "FooService_Read",
+      },
+      "delete": {
+        "operationId": "FooService_Delete",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1ReadResponse"
+              "$ref": "#/definitions/v1DeleteResponse"
             }
           },
           "404": {
