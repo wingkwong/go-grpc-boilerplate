@@ -13,6 +13,16 @@ sudo unzip -o $PROTOC_ZIP -d /usr/local 'include/*'
 rm -f $PROTOC_ZIP
 ```
 
+## MySQL
+
+```
+brew install mysql
+```
+
+```
+mysql.server start
+```
+
 ### Optional
 
 Install ``vscode-proto3`` in Visual Studio Code
@@ -24,7 +34,7 @@ Refer to [golang-standards/project-layout](https://github.com/golang-standards/p
 ## Run protobuf Compiler 
 
 ```bash
-protoc --proto_path=api/proto/v1 --proto_path=third_party --go_out=plugins=grpc:pkg/api/v1 foo-service.proto
+protoc --proto_path=api/proto/v1 --go_out=plugins=grpc:pkg/api/v1 foo-service.proto
 ```
 
 ## Run gRPC Server
