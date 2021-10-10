@@ -21,7 +21,7 @@ func main() {
 	// Create
 	resp, err := http.Post(*address+"/api/v1/foo", "application/json", strings.NewReader(fmt.Sprintf(`
 		{
-			"api":"v1",
+			"api_version":"v1",
 			"foo": {
 				"title":"title (%s)",
 				"desc": "desc (%s)"
@@ -43,8 +43,8 @@ func main() {
 	log.Printf("[INFO] Create response: Code=%d, Body=%s\n\n", resp.StatusCode, body)
 
 	var created struct {
-		API string `json:"api"`
-		ID  string `json:"id"`
+		API_VERSION string `json:"api_version"`
+		ID          string `json:"id"`
 	}
 
 	err = json.Unmarshal(bodyBytes, &created)
@@ -71,7 +71,7 @@ func main() {
 	req, _ := http.NewRequest("PUT", fmt.Sprintf("%s%s/%s", *address, "/api/v1/foo", created.ID),
 		strings.NewReader(fmt.Sprintf(`
 		{
-			"api":"v1",
+			"api_version":"v1",
 			"foo": {
 				"title":"title (%s) + updated",
 				"desc":"desc (%s) + updated"
