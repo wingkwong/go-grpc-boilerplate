@@ -39,18 +39,26 @@ protoc --proto_path=api/proto/v1 --proto_path=third_party --grpc-gateway_out=log
 protoc --proto_path=api/proto/v1 --proto_path=third_party --swagger_out=logtostderr=true:api/swagger/v1 foo-service.proto
 ```
 
-## Run gRPC Server
+## Run gRPC Server with HTTP/REST gateway
 
 ```
 cd cmd/server
 go build .
-./server -grpc-port=9090 -db-host=<HOST>:3306 -db-user=<DB_USER> -db-password=<DB_PASSWORD> -db-schema=<DB_SCHEMA>
+./server -grpc-port=9090 -http-port=8080 -db-host=<HOST>:3306 -db-user=<DB_USER> -db-password=<DB_PASSWORD> -db-schema=<DB_SCHEMA>
 ```
 
 ## Run gRPC Client
 
 ```
-cd cmd/client
+cd cmd/client-grpc
 go build .
-./client -server=localhost:9090
+./client-grpc -server=localhost:9090
+```
+
+## Run REST Client
+
+```
+cd cmd/client-rest
+go build .
+./client-rest -server=http://localhost:8080
 ```
