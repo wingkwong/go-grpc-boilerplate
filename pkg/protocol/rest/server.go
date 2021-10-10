@@ -32,12 +32,15 @@ func RunServer(ctx context.Context, grpcPort, httpPort string) error {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
 	go func() {
+		for range c {
+			// handle ^C
+		}
 		_, cancel := context.WithTimeout(ctx, 5*time.Second)
 		defer cancel()
 
 		_ = srv.Shutdown(ctx)
 	}()
 
-	log.Println("starting HTTP/REST gateway...")
+	log.Println("[INFO] Starting HTTP/REST Gateway...")
 	return srv.ListenAndServe()
 }
