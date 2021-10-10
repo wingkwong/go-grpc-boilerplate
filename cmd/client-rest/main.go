@@ -53,14 +53,15 @@ func main() {
 		fmt.Println("error:", err)
 	}
 
-	resp, err = http.Get(fmt.Sprintf("%s%s/%s", *address, "/v1/todo", created.ID))
+	// Read
+	resp, err = http.Get(fmt.Sprintf("%s%s/%s", *address, "/api/v1/foo", created.ID))
 	if err != nil {
 		log.Fatalf("[ERROR] Failed to call Read method: %v", err)
 	}
 	bodyBytes, err = ioutil.ReadAll(resp.Body)
 	resp.Body.Close()
 	if err != nil {
-		body = fmt.Sprintf("failed read Read response body: %v", err)
+		body = fmt.Sprintf("[ERROR] Failed read Read response body: %v", err)
 	} else {
 		body = string(bodyBytes)
 	}
@@ -92,7 +93,7 @@ func main() {
 	log.Printf("[INFO] Update response: Code=%d, Body=%s\n\n", resp.StatusCode, body)
 
 	// Delete
-	req, _ = http.NewRequest("DELETE", fmt.Sprintf("%s%s/%s", *address, "/v1/todo", created.ID), nil)
+	req, _ = http.NewRequest("DELETE", fmt.Sprintf("%s%s/%s", *address, "/api/v1/foo", created.ID), nil)
 	resp, err = http.DefaultClient.Do(req)
 	if err != nil {
 		log.Fatalf("[ERROR] Failed to call Delete method: %v", err)
