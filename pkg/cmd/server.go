@@ -21,7 +21,6 @@ type Config struct {
 	DatastoreDBPassword string
 	DatastoreDBSchema   string
 	LogLevel            int
-	LogTimeFormat       string
 }
 
 func RunServer() error {
@@ -35,7 +34,6 @@ func RunServer() error {
 	flag.StringVar(&cfg.DatastoreDBPassword, "db-password", "", "Database password")
 	flag.StringVar(&cfg.DatastoreDBSchema, "db-schema", "", "Database schema")
 	flag.IntVar(&cfg.LogLevel, "log-level", 0, "Global log level: Debug(-1), Info(0), Warn(1), Error(2), DPanic(3), Panic(4), Fatal(5)")
-	flag.StringVar(&cfg.LogTimeFormat, "log-time-format", "", "Print time format for logger e.g. 2019-07-21T23:20:00Z08:00")
 	flag.Parse()
 
 	if len(cfg.GRPCPort) == 0 {
@@ -46,7 +44,7 @@ func RunServer() error {
 		return fmt.Errorf("[ERROR] Invalid TCP port for HTTP gateway: '%s'", cfg.HTTPPort)
 	}
 
-	if err := logger.Init(cfg.LogLevel, cfg.LogTimeFormat); err != nil {
+	if err := logger.Init(cfg.LogLevel); err != nil {
 		return fmt.Errorf("[ERROR] Failed to initialize logger: %v", err)
 	}
 

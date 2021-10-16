@@ -10,13 +10,12 @@ import (
 )
 
 var (
-	Log              *zap.Logger
-	customTimeFormat string
-	onceInit         sync.Once
+	Log      *zap.Logger
+	onceInit sync.Once
 )
 
 func customTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
-	enc.AppendString(t.Format(customTimeFormat))
+	enc.AppendString(t.Format(time.RFC3339Nano))
 }
 
 // Overview of Level:
@@ -28,27 +27,24 @@ func customTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 // 4: PanicLevel logs a message, then panics.
 // 5: FatalLevel logs a message, then calls os.Exit(1).
 
-func Init(level int, timeFormat string) error {
+func Init(level int) error {
 	var err error
 
 	onceInit.Do(func() {
 		globalLevel := zapcore.Level(level)
+
 		highPriority := zap.LevelEnablerFunc(func(level zapcore.Level) bool {
 			return level >= zapcore.ErrorLevel
 		})
 		lowPriority := zap.LevelEnablerFunc(func(level zapcore.Level) bool {
 			return level >= globalLevel && level < zapcore.ErrorLevel
 		})
+
+		ecfg := zap.NewProductionEncoderConfig()
+		ecfg.EncodeTime = customTimeEncoder
+
 		consoleInfos := zapcore.Lock(os.Stdout)
 		consoleErrors := zapcore.Lock(os.Stderr)
-
-		var useCustomTimeFormat bool
-		ecfg := zap.NewProductionEncoderConfig()
-		if len(timeFormat) > 0 {
-			customTimeFormat = timeFormat
-			ecfg.EncodeTime = customTimeEncoder
-			useCustomTimeFormat = true
-		}
 		consoleEncoder := zapcore.NewJSONEncoder(ecfg)
 
 		core := zapcore.NewTee(
@@ -58,10 +54,6 @@ func Init(level int, timeFormat string) error {
 
 		Log = zap.New(core)
 		zap.RedirectStdLog(Log)
-
-		if !useCustomTimeFormat {
-			Log.Warn("[WARN] Time format for logger is not provided - use zap default")
-		}
 	})
 
 	return err
