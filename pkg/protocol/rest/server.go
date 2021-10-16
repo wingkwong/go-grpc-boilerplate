@@ -2,16 +2,18 @@ package rest
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 
 	v1 "github.com/wingkwong/go-grpc-boilerplate/pkg/api/v1"
+	"github.com/wingkwong/go-grpc-boilerplate/pkg/logger"
+	"github.com/wingkwong/go-grpc-boilerplate/pkg/protocol/rest/middleware"
 )
 
 func RunServer(ctx context.Context, grpcPort, httpPort string) error {
@@ -21,12 +23,12 @@ func RunServer(ctx context.Context, grpcPort, httpPort string) error {
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 	if err := v1.RegisterFooServiceHandlerFromEndpoint(ctx, mux, "localhost:"+grpcPort, opts); err != nil {
-		log.Fatalf("[ERROR] Failed to start HTTP gateway: %v", err)
+		logger.Log.Fatal("Failed to start HTTP gateway", zap.String("reason", err.Error()))
 	}
 
 	srv := &http.Server{
 		Addr:    ":" + httpPort,
-		Handler: mux,
+		Handler: middleware.AddRequestID(middleware.AddLogger(logger.Log, mux)),
 	}
 
 	c := make(chan os.Signal, 1)
@@ -41,6 +43,6 @@ func RunServer(ctx context.Context, grpcPort, httpPort string) error {
 		_ = srv.Shutdown(ctx)
 	}()
 
-	log.Println("[INFO] Starting HTTP/REST Gateway...")
+	logger.Log.Info("Starting HTTP/REST Gateway...")
 	return srv.ListenAndServe()
 }
