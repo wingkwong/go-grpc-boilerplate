@@ -8,6 +8,7 @@ import (
 
 	v1 "github.com/wingkwong/go-grpc-boilerplate/pkg/api/v1"
 	"github.com/wingkwong/go-grpc-boilerplate/pkg/logger"
+	"github.com/wingkwong/go-grpc-boilerplate/pkg/protocol/grpc/middleware"
 	"google.golang.org/grpc"
 )
 
@@ -17,7 +18,10 @@ func RunServer(ctx context.Context, v1API v1.FooServiceServer, port string) erro
 		return err
 	}
 
-	server := grpc.NewServer()
+	opts := []grpc.ServerOption{}
+	opts = middleware.AddLogging(logger.Log, opts)
+
+	server := grpc.NewServer(opts...)
 	v1.RegisterFooServiceServer(server, v1API)
 
 	c := make(chan os.Signal, 1)
