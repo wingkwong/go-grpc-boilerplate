@@ -67,7 +67,7 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
         version: "1.0";
     };
     external_docs: {
-      url: "https://github.com/wubgjwibg/grpc-gateway-boilerplate";
+      url: "https://github.com/wingkwong/go-grpc-boilerplate";
       description: "gRPC-gateway boilerplate repository";
     }
     schemes: HTTPS;
