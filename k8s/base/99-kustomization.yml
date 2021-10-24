@@ -1,4 +1,5 @@
 resources:
-  - 00-foo-app-ingress.yml
-  - 01-foo-deployment.yml
-  - 02-foo-app-service.yml
+  - 00-foo-app-namspace.yml
+  - 01-foo-app-ingress.yml
+  - 02-foo-deployment.yml
+  - 03-foo-app-service.yml
