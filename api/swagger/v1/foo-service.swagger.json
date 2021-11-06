@@ -53,6 +53,43 @@
         ]
       }
     },
+    "/api/v1/foo/all": {
+      "get": {
+        "operationId": "FooService_ReadAll",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ReadAllResponse"
+            }
+          },
+          "404": {
+            "description": "Returned when the resource does not exist.",
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "api_version",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FooService"
+        ]
+      }
+    },
     "/api/v1/foo/{foo.id}": {
       "put": {
         "operationId": "FooService_Update",
@@ -320,6 +357,20 @@
         }
       }
     },
+    "v1ReadAllResponse": {
+      "type": "object",
+      "properties": {
+        "api_version": {
+          "type": "string"
+        },
+        "foos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Foo"
+          }
+        }
+      }
+    },
     "v1ReadResponse": {
       "type": "object",
       "properties": {
@@ -376,6 +427,6 @@
   },
   "externalDocs": {
     "description": "gRPC-gateway boilerplate repository",
-    "url": "https://github.com/wubgjwibg/grpc-gateway-boilerplate"
+    "url": "https://github.com/wingkwong/go-grpc-boilerplate"
   }
 }
