@@ -61,6 +61,15 @@ message DeleteResponse {
     int64 count = 2;
 }
 
+message ReadAllRequest{
+    string api_version = 1;
+}
+
+message ReadAllResponse{
+    string api_version = 1;
+    repeated Foo foos = 2;
+}
+
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
     info: {
         title: "Foo Service";
@@ -98,6 +107,11 @@ service FooService {
             get: "/api/v1/foo/{id}"
         };
     };
+    rpc ReadAll(ReadAllRequest) returns (ReadAllResponse){
+        option (google.api.http) = {
+            get: "/api/v1/foo/all"
+        };
+    }
     rpc Update(UpdateRequest) returns (UpdateResponse) {
         option (google.api.http) = {
             put: "/api/v1/foo/{foo.id}"

@@ -57,8 +57,18 @@ func main() {
 	}
 	log.Printf("[Info] Read result: <%+v>\n\n", res2)
 
+	// ReadAll
+	req3 := v1.ReadAllRequest{
+		ApiVersion: apiVersion,
+	}
+	res3, err := c.ReadAll(ctx, &req3)
+	if err != nil {
+		log.Fatalf("[Error] Failed to read all : %v", err)
+	}
+	log.Printf("[INFO] ReadAll result: <%+v>\n\n", res3)
+
 	// Update
-	req3 := v1.UpdateRequest{
+	req4 := v1.UpdateRequest{
 		ApiVersion: apiVersion,
 		Foo: &v1.Foo{
 			Id:    res2.Foo.Id,
@@ -66,20 +76,20 @@ func main() {
 			Desc:  res2.Foo.Desc + " + (Updated)",
 		},
 	}
-	res3, err := c.Update(ctx, &req3)
+	res4, err := c.Update(ctx, &req4)
 	if err != nil {
 		log.Fatalf("[Error] Failed to update : %v", err)
 	}
-	log.Printf("[Info] Update result: <%+v>\n\n", res3)
+	log.Printf("[Info] Update result: <%+v>\n\n", res4)
 
 	// Delete
-	req4 := v1.DeleteRequest{
+	req5 := v1.DeleteRequest{
 		ApiVersion: apiVersion,
 		Id:         id,
 	}
-	res4, err := c.Delete(ctx, &req4)
+	res5, err := c.Delete(ctx, &req5)
 	if err != nil {
 		log.Fatalf("[Error] Failed to delete : %v", err)
 	}
-	log.Printf("[Info] Delete result: <%+v>\n\n", res4)
+	log.Printf("[Info] Delete result: <%+v>\n\n", res5)
 }

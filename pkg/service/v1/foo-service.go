@@ -118,6 +118,55 @@ func (s *fooServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.R
 	}, nil
 }
 
+func (s *fooServiceServer) ReadAll(ctx context.Context, req *v1.ReadAllRequest) (*v1.ReadAllResponse, error) {
+	if err := s.checkAPI(req.ApiVersion); err != nil {
+		return nil, err
+	}
+
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	rows, err := c.QueryContext(ctx, "SELECT `ID`, `Title`, `Desc`, `CreatedBy`, `UpdatedBy`, `CreatedAt`, `UpdatedAt` FROM Foo")
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "[Error] Failed to retrieve all data from Foo: "+err.Error())
+	}
+	defer rows.Close()
+
+	var CreatedAt time.Time
+	var UpdatedAt time.Time
+
+	fooList := []*v1.Foo{}
+	for rows.Next() {
+		foo := new(v1.Foo)
+		if err := rows.Scan(&foo.Id, &foo.Title, &foo.Desc, &foo.SysFields.CreatedBy, &foo.SysFields.UpdatedBy, &CreatedAt, &UpdatedAt); err != nil {
+			return nil, status.Error(codes.Unknown, "[ERROR] Failed to retrieve field values from Foo: "+err.Error())
+		}
+
+		foo.SysFields.CreatedAt = timestamppb.New(CreatedAt)
+		if err != nil {
+			return nil, status.Error(codes.Unknown, "[ERROR] Field createdAt has invalid format: "+err.Error())
+		}
+
+		foo.SysFields.UpdatedAt = timestamppb.New(UpdatedAt)
+		if err != nil {
+			return nil, status.Error(codes.Unknown, "[ERROR] Field updatedAt has invalid format: "+err.Error())
+		}
+		fooList = append(fooList, foo)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, status.Error(codes.Unknown, "[ERROR] Failed to retrieve data from Foo: "+err.Error())
+	}
+
+	return &v1.ReadAllResponse{
+		ApiVersion:   apiVersion,
+		Foos: fooList,
+	}, nil
+}
+
 func (s *fooServiceServer) Update(ctx context.Context, req *v1.UpdateRequest) (*v1.UpdateResponse, error) {
 	if err := s.checkAPI(req.ApiVersion); err != nil {
 		return nil, err

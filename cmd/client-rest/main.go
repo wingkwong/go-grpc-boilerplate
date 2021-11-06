@@ -53,6 +53,20 @@ func main() {
 		fmt.Println("error:", err)
 	}
 
+	// ReadAll
+	resp, err = http.Get(*address + "/api/v1/foo/all")
+	if err != nil {
+		log.Fatalf("[ERROR] Failed to call ReadAll method: %v", err)
+	}
+	bodyBytes, err = ioutil.ReadAll(resp.Body)
+	resp.Body.Close()
+	if err != nil {
+		body = fmt.Sprintf("[ERROR] Failed read ReadAll response body: %v", err)
+	} else {
+		body = string(bodyBytes)
+	}
+	log.Printf("[INFO] Read response: Code=%d, Body=%s\n\n", resp.StatusCode, body)
+
 	// Read
 	resp, err = http.Get(fmt.Sprintf("%s%s/%s", *address, "/api/v1/foo", created.ID))
 	if err != nil {
@@ -65,7 +79,7 @@ func main() {
 	} else {
 		body = string(bodyBytes)
 	}
-	log.Printf("Read response: Code=%d, Body=%s\n\n", resp.StatusCode, body)
+	log.Printf("[INFO] Read response: Code=%d, Body=%s\n\n", resp.StatusCode, body)
 
 	// Update
 	req, _ := http.NewRequest("PUT", fmt.Sprintf("%s%s/%s", *address, "/api/v1/foo", created.ID),
