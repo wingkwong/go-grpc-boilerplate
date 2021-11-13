@@ -42,12 +42,16 @@ func Test_fooServiceServer_Create(t *testing.T) {
 					Foo: &v1.Foo{
 						Title: "title",
 						Desc:  "description",
+						SysFields: &v1.SystemFields{
+							CreatedBy: "foo",
+							UpdatedBy: "foo",
+						},
 					},
 				},
 			},
 			mock: func() {
 				mock.ExpectExec("INSERT INTO Foo").
-					WithArgs("title", "description").
+					WithArgs("title", "description", "foo", "foo").
 					WillReturnResult(sqlmock.NewResult(1, 1))
 			},
 			want: &v1.CreateResponse{
@@ -65,6 +69,10 @@ func Test_fooServiceServer_Create(t *testing.T) {
 					Foo: &v1.Foo{
 						Title: "title",
 						Desc:  "description",
+						SysFields: &v1.SystemFields{
+							CreatedBy: "foo",
+							UpdatedBy: "foo",
+						},
 					},
 				},
 			},
@@ -81,6 +89,10 @@ func Test_fooServiceServer_Create(t *testing.T) {
 					Foo: &v1.Foo{
 						Title: "title",
 						Desc:  "description",
+						SysFields: &v1.SystemFields{
+							CreatedBy: "foo",
+							UpdatedBy: "foo",
+						},
 					},
 				},
 			},
@@ -101,6 +113,10 @@ func Test_fooServiceServer_Create(t *testing.T) {
 					Foo: &v1.Foo{
 						Title: "title",
 						Desc:  "description",
+						SysFields: &v1.SystemFields{
+							CreatedBy: "foo",
+							UpdatedBy: "foo",
+						},
 					},
 				},
 			},
