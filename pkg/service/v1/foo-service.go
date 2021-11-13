@@ -91,7 +91,7 @@ func (s *fooServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.R
 		if err := rows.Err(); err != nil {
 			return nil, status.Error(codes.Unknown, "[Error] Failed to retrieve data from Foo: "+err.Error())
 		}
-		return nil, status.Errorf(codes.NotFound, "[Error] Failed to find Id : %s", id)
+		return nil, status.Errorf(codes.NotFound, "[Error] Failed to find Id : %d", id)
 	}
 
 	var foo v1.Foo
