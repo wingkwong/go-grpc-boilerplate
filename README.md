@@ -72,3 +72,10 @@ cd cmd/client-rest
 go build .
 ./client-rest -server=http://localhost:8080
 ```
+
+## Run test
+
+```
+cd pkg/service/v1
+go test
+```
