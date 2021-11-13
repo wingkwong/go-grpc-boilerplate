@@ -98,7 +98,7 @@ func Test_fooServiceServer_Create(t *testing.T) {
 			},
 			mock: func() {
 				mock.ExpectExec("INSERT INTO Foo").
-					WithArgs("title", "description").
+					WithArgs("title", "description", "foo", "foo").
 					WillReturnError(errors.New("INSERT failed"))
 			},
 			wantErr: true,
@@ -122,7 +122,7 @@ func Test_fooServiceServer_Create(t *testing.T) {
 			},
 			mock: func() {
 				mock.ExpectExec("INSERT INTO Foo").
-					WithArgs("title", "description").
+					WithArgs("title", "description", "foo", "foo").
 					WillReturnResult(sqlmock.NewErrorResult(errors.New("LastInsertId failed")))
 			},
 			wantErr: true,
