@@ -178,7 +178,9 @@ func (s *fooServiceServer) Update(ctx context.Context, req *v1.UpdateRequest) (*
 	}
 	defer c.Close()
 
-	res, err := c.ExecContext(ctx, "UPDATE Foo SET `Title` = ?, `Desc` = ? WHERE `ID` = ?", req.Foo.Title, req.Foo.Desc, req.Foo.Id)
+	updatedAt := time.Now()
+
+	res, err := c.ExecContext(ctx, "UPDATE Foo SET `Title` = ?, `Desc` = ?, `UpdatedAt` = ? WHERE `ID` = ?", req.Foo.Title, req.Foo.Desc, updatedAt, req.Foo.Id)
 	if err != nil {
 		return nil, status.Error(codes.Unknown, "[Error] Failed to update Foo : "+err.Error())
 	}
