@@ -2,6 +2,7 @@ package v1
 
 import (
 	"context"
+	"database/sql/driver"
 	"errors"
 	"reflect"
 	"testing"
@@ -12,6 +13,13 @@ import (
 
 	v1 "github.com/wingkwong/go-grpc-boilerplate/pkg/api/v1"
 )
+
+type AnyTime struct{}
+
+func (a AnyTime) Match(v driver.Value) bool {
+	_, ok := v.(time.Time)
+	return ok
+}
 
 func Test_fooServiceServer_Create(t *testing.T) {
 	ctx := context.Background()
@@ -261,7 +269,140 @@ func Test_fooServiceServer_Read(t *testing.T) {
 }
 
 func Test_fooServiceServer_Update(t *testing.T) {
-	// TO BE IMPLEMENTED
+	ctx := context.Background()
+	db, mock, err := sqlmock.New()
+	if err != nil {
+		t.Fatalf("[Error] '%s' was not expected when opening a stub database connection", err)
+	}
+	defer db.Close()
+	s := NewFooServiceServer(db)
+
+	type args struct {
+		ctx context.Context
+		req *v1.UpdateRequest
+	}
+	tests := []struct {
+		name    string
+		s       v1.FooServiceServer
+		args    args
+		mock    func()
+		want    *v1.UpdateResponse
+		wantErr bool
+	}{
+		{
+			name: "01 - OK",
+			s:    s,
+			args: args{
+				ctx: ctx,
+				req: &v1.UpdateRequest{
+					ApiVersion: "v1",
+					Foo: &v1.Foo{
+						Id:    1,
+						Title: "new title",
+						Desc:  "new description",
+					},
+				},
+			},
+			mock: func() {
+				mock.ExpectExec("UPDATE Foo").WithArgs("new title", "new description", AnyTime{}, 1).
+					WillReturnResult(sqlmock.NewResult(1, 1))
+			},
+			want: &v1.UpdateResponse{
+				ApiVersion: "v1",
+				Count:      1,
+			},
+		},
+		{
+			name: "02 - Unsupported API",
+			s:    s,
+			args: args{
+				ctx: ctx,
+				req: &v1.UpdateRequest{
+					ApiVersion: "v1",
+					Foo: &v1.Foo{
+						Id:    1,
+						Title: "new title",
+						Desc:  "new description",
+					},
+				},
+			},
+			mock:    func() {},
+			wantErr: true,
+		},
+		{
+			name: "03 - UPDATE failed",
+			s:    s,
+			args: args{
+				ctx: ctx,
+				req: &v1.UpdateRequest{
+					ApiVersion: "v1",
+					Foo: &v1.Foo{
+						Id:    1,
+						Title: "new title",
+						Desc:  "new description",
+					},
+				},
+			},
+			mock: func() {
+				mock.ExpectExec("UPDATE Foo").WithArgs("new title", "new description", 1).
+					WillReturnError(errors.New("UPDATE failed"))
+			},
+			wantErr: true,
+		},
+		{
+			name: "04 - RowsAffected failed",
+			s:    s,
+			args: args{
+				ctx: ctx,
+				req: &v1.UpdateRequest{
+					ApiVersion: "v1",
+					Foo: &v1.Foo{
+						Id:    1,
+						Title: "new title",
+						Desc:  "new description",
+					},
+				},
+			},
+			mock: func() {
+				mock.ExpectExec("UPDATE Foo").WithArgs("new title", "new description", 1).
+					WillReturnResult(sqlmock.NewErrorResult(errors.New("RowsAffected failed")))
+			},
+			wantErr: true,
+		},
+		{
+			name: "05 - Not Found",
+			s:    s,
+			args: args{
+				ctx: ctx,
+				req: &v1.UpdateRequest{
+					ApiVersion: "v1",
+					Foo: &v1.Foo{
+						Id:    1,
+						Title: "new title",
+						Desc:  "new description",
+					},
+				},
+			},
+			mock: func() {
+				mock.ExpectExec("UPDATE Foo").WithArgs("new title", "new description", 1).
+					WillReturnResult(sqlmock.NewResult(1, 0))
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.mock()
+			got, err := tt.s.Update(tt.args.ctx, tt.args.req)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("fooServiceServer.Update() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if err == nil && !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("fooServiceServer.Update() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
 
 func Test_fooServiceServer_Delete(t *testing.T) {
