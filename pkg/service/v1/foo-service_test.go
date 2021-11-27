@@ -406,5 +406,118 @@ func Test_fooServiceServer_Update(t *testing.T) {
 }
 
 func Test_fooServiceServer_Delete(t *testing.T) {
-	// TO BE IMPLEMENTED
+	ctx := context.Background()
+	db, mock, err := sqlmock.New()
+	if err != nil {
+		t.Fatalf("[Error] '%s' was not expected when opening a stub database connection", err)
+	}
+	defer db.Close()
+	s := NewFooServiceServer(db)
+
+	type args struct {
+		ctx context.Context
+		req *v1.DeleteRequest
+	}
+	tests := []struct {
+		name    string
+		s       v1.FooServiceServer
+		args    args
+		mock    func()
+		want    *v1.DeleteResponse
+		wantErr bool
+	}{
+		{
+			name: "01 - OK",
+			s:    s,
+			args: args{
+				ctx: ctx,
+				req: &v1.DeleteRequest{
+					ApiVersion: "v1",
+					Id:         1,
+				},
+			},
+			mock: func() {
+				mock.ExpectExec("DELETE FROM Foo").WithArgs(1).
+					WillReturnResult(sqlmock.NewResult(1, 1))
+			},
+			want: &v1.DeleteResponse{
+				ApiVersion: "v1",
+				Count:      1,
+			},
+		},
+		{
+			name: "02 - Unsupported API",
+			s:    s,
+			args: args{
+				ctx: ctx,
+				req: &v1.DeleteRequest{
+					ApiVersion: "v1",
+					Id:         1,
+				},
+			},
+			mock:    func() {},
+			wantErr: true,
+		},
+		{
+			name: "03 - DELETE failed",
+			s:    s,
+			args: args{
+				ctx: ctx,
+				req: &v1.DeleteRequest{
+					ApiVersion: "v1",
+					Id:         1,
+				},
+			},
+			mock: func() {
+				mock.ExpectExec("DELETE FROM Foo").WithArgs(1).
+					WillReturnError(errors.New("DELETE failed"))
+			},
+			wantErr: true,
+		},
+		{
+			name: "04 - RowsAffected failed",
+			s:    s,
+			args: args{
+				ctx: ctx,
+				req: &v1.DeleteRequest{
+					ApiVersion: "v1",
+					Id:         1,
+				},
+			},
+			mock: func() {
+				mock.ExpectExec("DELETE FROM Foo").WithArgs(1).
+					WillReturnResult(sqlmock.NewErrorResult(errors.New("RowsAffected failed")))
+			},
+			wantErr: true,
+		},
+		{
+			name: "05 - Not Found",
+			s:    s,
+			args: args{
+				ctx: ctx,
+				req: &v1.DeleteRequest{
+					ApiVersion: "v1",
+					Id:         1,
+				},
+			},
+			mock: func() {
+				mock.ExpectExec("DELETE FROM Foo").WithArgs(1).
+					WillReturnResult(sqlmock.NewResult(1, 0))
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.mock()
+			got, err := tt.s.Delete(tt.args.ctx, tt.args.req)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("fooServiceServer.Delete() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if err == nil && !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("fooServiceServer.Delete() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
