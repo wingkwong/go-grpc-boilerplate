@@ -61,7 +61,7 @@ func Test_fooServiceServer_Create(t *testing.T) {
 			},
 			mock: func() {
 				mock.ExpectExec("INSERT INTO Foo").
-					WithArgs("title", "description", "foo", "foo").
+					WithArgs("title", "description", "foo", "foo", AnyTime{}, AnyTime{}).
 					WillReturnResult(sqlmock.NewResult(1, 1))
 			},
 			want: &v1.CreateResponse{

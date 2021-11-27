@@ -50,10 +50,12 @@ func (s *fooServiceServer) Create(ctx context.Context, req *v1.CreateRequest) (*
 	}
 	defer c.Close()
 
+	curTime := time.Now()
+
 	res, err := c.ExecContext(
 		ctx,
-		"INSERT INTO Foo(`Title`, `Desc`, `CreatedBy`, `UpdatedBy`) VALUES(?, ?, ?, ?)",
-		req.Foo.Title, req.Foo.Desc, req.Foo.SysFields.CreatedBy, req.Foo.SysFields.UpdatedBy)
+		"INSERT INTO Foo(`Title`, `Desc`, `CreatedBy`, `UpdatedBy`, `CreatedAt`, `UpdatedAt`) VALUES(?, ?, ?, ?, ?, ?)",
+		req.Foo.Title, req.Foo.Desc, req.Foo.SysFields.CreatedBy, req.Foo.SysFields.UpdatedBy, curTime, curTime)
 	if err != nil {
 		return nil, status.Error(codes.Unknown, "[Error] Failed to insert into record: "+err.Error())
 	}
